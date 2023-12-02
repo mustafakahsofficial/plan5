@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Notion Planlayıcı</title>
+  
+</head>
+<body>
+  <div class="planner-container">
+    <h1>Notion Planlayıcı</h1>
+    <div class="input-container">
+      <label for="date">Tarih:</label>
+      <input type="text" id="date">
+    </div>
+    <div class="input-container">
+      <label for="task">Görev:</label>
+      <input type="text" id="task">
+      <button id="add-button">Ekle</button>
+    </div>
+    <ul id="task-list"></ul>
+  </div>
+
+  <style>
+  /* Genel stillendirmeler */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  body {
+    font-family: Arial, sans-serif;
+    background-color: rgb(26, 52, 167);
+  }
+  
+  /* Planlayıcı stillendirmeleri */
+  .planner-container {
+    width: 80%;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #884e4e;
+    border: 1px solid #832b2b;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .input-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .input-container label {
+    font-weight: bold;
+    margin-right: 10px;
+  }
+  
+  .input-container input[type="text"] {
+    padding: 5px;
+  }
+  
+  #add-button {
+    padding: 5px 10px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  
+  #task-list {
+    list-style-type: none;
+    margin-bottom: 20px;
+  }
+  
+  li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #f2f2f2;
+    margin-bottom: 10px;
+    border-radius: 3px;
+  }
+  
+  .completed {
+    text-decoration: line-through;
+    color: #aaa;
+  }
+  
+  li button {
+    padding: 5px 10px;
+    background-color: #f44336;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  
+  li button:hover {
+    background-color: #d32f2f;
+  }
+  
+</style>
+  
+  <script>
+    // Planlayıcı öğeleri
+const dateInput = document.getElementById('date');
+const taskInput = document.getElementById('task');
+const addButton = document.getElementById('add-button');
+const taskList = document.getElementById('task-list');
+
+// Görev ekleme işlevi
+function addTask() {
+  const date = dateInput.value;
+  const task = taskInput.value;
+
+  if(date != '' && task != '') {
+    const taskItem = document.createElement('li');
+    taskItem.innerHTML = `
+      <span>${date}: ${task}</span>
+      <button class="delete-button">Sil</button>
+    `;
+
+    taskList.appendChild(taskItem);
+
+    dateInput.value = '';
+    taskInput.value = '';
+
+    // Görev silme işlemini ekle
+    const deleteButton = taskItem.querySelector('.delete-button');
+    deleteButton.addEventListener('click', function() {
+      taskItem.remove();
+    });
+  }
+}
+
+// Ekleme düğmesine tıklama olaylarını dinle
+addButton.addEventListener('click', addTask);
+  </script>
+
+  
+</body>
+</html>
